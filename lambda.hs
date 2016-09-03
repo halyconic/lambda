@@ -24,7 +24,7 @@ data Expr a
   | Abst a (Expr a)
   | App (Expr a) (Expr a)
   | Sub (Expr a) a (Expr a)
-deriving (Eq, Show)
+  deriving (Eq, Show)
 
 app :: (Eq a) => Expr a -> Expr a
 app (App (Abst var body) env) = (Sub body var env)
@@ -55,7 +55,7 @@ evalWhile :: (Eq a) => Expr a -> Expr a
 evalWhile a
   | a == b = a
   | otherwise = evalWhile b
-where b = eval a
+  where b = eval a
 
 -- usage:
 --
