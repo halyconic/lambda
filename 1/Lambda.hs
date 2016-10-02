@@ -1,4 +1,4 @@
-module Eval where
+module Lambda where
 
 import Data.Maybe
 import Data.Tuple
@@ -26,16 +26,16 @@ data Expr a
   | Sub (Expr a) a (Expr a)
   deriving (Eq, Show)
 
-app :: (Eq a) => Expr a -> Expr a
+app :: Eq a => Expr a -> Expr a
 app (App (Abst var body) env) = (Sub body var env)
 app a = a
 
-abst :: (Eq a) => Expr a -> Expr a
+abst :: Eq a => Expr a -> Expr a
 abst (Abst var (App body (Var var')))
   | var == var' = body
 abst a = a
 
-sub :: (Eq a) => Expr a -> Expr a
+sub :: Eq a => Expr a -> Expr a
 sub (Sub (Var var') var env)
   | var == var' = env
   | otherwise = (Var var')
@@ -45,13 +45,13 @@ sub (Sub (Abst var' body) var env)
 sub (Sub (App a b) var env) = (App (Sub a var env) (Sub b var env))
 sub a = a
 
-eval :: (Eq a) => Expr a -> Expr a
+eval :: Eq a => Expr a -> Expr a
 eval expr@(Var _) = expr
 eval expr@(Abst a b) = abst (Abst a (eval b))
 eval expr@(App a b) = app (App (eval a) (eval b))
 eval expr@(Sub a b c) = sub (Sub (eval a) b (eval c))
 
-evalWhile :: (Eq a) => Expr a -> Expr a
+evalWhile :: Eq a => Expr a -> Expr a
 evalWhile a
   | a == b = a
   | otherwise = evalWhile b
