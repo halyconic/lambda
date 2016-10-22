@@ -8,3 +8,7 @@ This interpreter accurately encodes the reduction rules as written [here](https:
 ## 2: Interpreter using fixed point functions
 
 This interpreter uses catamorphisms and anamorphisms to encode the reduction rules by using fixed points. This makes the interpreter more efficient. The interpreter operates on the AST directly, but a naive writer is available to view fixed point expressions.
+
+## 2: Interpreter using De Bruijn Indices
+
+This interpreter simplifies the naming rules of lambda calculus, using De Bruijn Indices. The interpreter operates on the AST directly, but a naive writer is available to view fixed point expressions.
